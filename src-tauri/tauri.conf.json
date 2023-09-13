@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "beforeBuildCommand": "yarn deploy:web",
-    "beforeDevCommand": "yarn web && yarn start",
+    "beforeDevCommand": "yarn web",
     "devPath": "http://localhost:19006",
     "distDir": "../web-build"
   },
