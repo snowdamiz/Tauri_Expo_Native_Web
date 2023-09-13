@@ -1,0 +1,40 @@
+{
+  "name": "tauriexpotest",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start --clear",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "build:ios": "eas build --platform ios --local",
+    "build:ios:remote": "eas build --platform ios",
+    "deploy:web": "expo export:web"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@expo/webpack-config": "^18.0.1",
+    "@tauri-apps/api": "^1.4.0",
+    "expo": "^48.0.0",
+    "expo-device": "~5.2.1",
+    "expo-linking": "~4.0.1",
+    "expo-secure-store": "~12.1.1",
+    "expo-splash-screen": "~0.18.2",
+    "expo-status-bar": "~1.4.4",
+    "lodash": "^4.17.21",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.71.8",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-safe-area-context": "4.5.0",
+    "react-native-screens": "~3.20.0",
+    "react-native-web": "~0.18.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@tauri-apps/cli": "^1.4.0"
+  },
+  "private": true
+}

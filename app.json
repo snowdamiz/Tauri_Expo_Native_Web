@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "ios": {
+      "buildNumber": "1",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bonfire.tauriexpotest",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "version": "0.0.1",
+    "name": "Tauri Expo Test",
+    "description": "All platforms test",
+    "slug": "TauriExpoTest",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "cover"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "name": "Tauri Expo Test"
+    },
+    "extra": {
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}
