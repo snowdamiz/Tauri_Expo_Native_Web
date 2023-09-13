@@ -4,6 +4,6 @@
 `yarn`
 
 ### Run
-`npx tarui dev`
+`npx tauri dev`
 
 > Note: I haven't found a way to run ios simulator at the same time, run on device expo go for now
