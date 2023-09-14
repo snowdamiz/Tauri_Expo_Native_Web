@@ -2,20 +2,20 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { navigationRef } from './helpers/navigation'
 import { useSystemStore } from './store/system.store'
-import { Home, HomeMobile, Login } from './layouts'
+import { L_Home, L_HomeMobile, L_Login } from './components/layouts'
 
 const Stack = createNativeStackNavigator()
 
 const SCREEN_COMPONENTS = {
   login: {
-    web: Login,
-    mobile: Login,
-    desktop: Login,
+    web: L_Login,
+    mobile: L_Login,
+    desktop: L_Login,
   },
   home: {
-    web: Home,
-    mobile: HomeMobile,
-    desktop: Home,
+    web: L_Home,
+    mobile: L_HomeMobile,
+    desktop: L_Home,
   },
 }
 

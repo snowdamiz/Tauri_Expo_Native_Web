@@ -10,8 +10,6 @@ export const styles = EStyleSheet.create({
   },
 
   text: {
-    fontSize: 30,
-    fontWeight: 'bold',
     color: '$text_color_default',
     userSelect: 'none'
   }

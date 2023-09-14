@@ -5,7 +5,7 @@ import { THEMES } from 'constants'
 import { View, Text } from 'react-native'
 import { styles } from './styles'
 
-export const Home = (props) => {
+export const L_HomeMobile = (props) => {
   const theme = EStyleSheet.value('$theme')
   const statusBarStyle = theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT
 
@@ -14,7 +14,7 @@ export const Home = (props) => {
       <StatusBar style={statusBarStyle} />
       <SafeAreaProvider>
         <View style={styles.container}>
-          <Text style={styles.text}>Home Layout</Text>
+          <Text style={styles.text}>Home Mobile Layout</Text>
         </View>
       </SafeAreaProvider>
     </>
