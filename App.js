@@ -1,71 +1,66 @@
-import { StatusBar } from 'expo-status-bar'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { useState, useEffect } from 'react'
-import { Text, View, Platform, useColorScheme, Button } from 'react-native'
+import { useEffect } from 'react'
+import { View, Platform, useColorScheme } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import EStyleSheet from 'react-native-extended-stylesheet'
+import { THEMES } from 'constants'
+import { ThemeContext } from 'theme'
+import lightTheme from 'theme/light'
+import darkTheme from 'theme/dark'
+import Navigation from './src/Navigation'
+import { useSystemStore } from './src/store/system.store'
+
+EStyleSheet.build(lightTheme)
 
 export default function App() {
   const colorScheme = useColorScheme()
 
-  const [platform, setPlatform ] = useState('')
-  const [theme, setTheme] = useState('')
+  const setPlatformState = useSystemStore(state => state.setPlatform)
+  const [themeLoading, setThemeLoading] = useSystemStore(state => [state.themeLoading, state.setThemeLoading])
   
-  useEffect(() => handleSetPlatform())
-  useEffect(() => async () => loadDefaultTheme())
-  useEffect(() => async () => toggleTheme(), [theme])
+  useEffect(() => setPlatform(), [])
+  useEffect(() => loadDefaultTheme(), [])
 
-  // Set Platform Type
-  const handleSetPlatform = () => {
+  const setPlatform = () => {
     const isDesktop = window.__TAURI__
     const isWeb = Platform.OS === 'web'
 
-    if (isDesktop) setPlatform('desktop')
-    else if (!isDesktop && isWeb) setPlatform('web')
-    else setPlatform('mobile')
+    if (isDesktop) setPlatformState('desktop')
+    else if (!isDesktop && isWeb) setPlatformState('web')
+    else setPlatformState('mobile')
   }
 
-  // Set theme
-  const loadDefaultTheme = async () => {
-    try {
+  const loadDefaultTheme = () => {
+    (async () => {
       const savedTheme = await AsyncStorage.getItem('theme')
-      if (savedTheme) setTheme(savedTheme)
-      else setTheme(colorScheme)
-    } catch (error) {
-      setTheme(colorScheme)
-    }
+      let theme
+        
+      if (savedTheme) theme = savedTheme === THEMES.LIGHT ? lightTheme : darkTheme
+      else theme = colorScheme === 'light' ? lightTheme : darkTheme
+    
+      EStyleSheet.build(theme)
+      setThemeLoading(false)
+    })()
   }
 
-  // Toggle theme
   const toggleTheme = async () => {
-    try {
-      await AsyncStorage.setItem('theme', theme)
-      setTheme(theme)
-    } catch (error) {
-      setTheme(theme)
-    }
+    setThemeLoading(true)
+    const theme = EStyleSheet.value('$theme') === THEMES.LIGHT ? darkTheme : lightTheme
+    const newTheme = theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT
+
+    EStyleSheet.build(theme)
+
+    await AsyncStorage.setItem('theme', newTheme)
+    setThemeLoading(false)
   }
+
+  if (themeLoading) return <View />
 
   return (
-    <SafeAreaProvider>
-      <StatusBar style="light" />
-      <View style={style.container}>
-        <Text style={style.text}>Hello from {platform}</Text>
-        <Button title="Toggle Theme" onPress={toggleTheme} />
-      </View>
-    </SafeAreaProvider>
+    <ThemeContext.Provider value={{ toggleTheme }}>
+      <SafeAreaProvider>
+        <Navigation />
+      </SafeAreaProvider>
+    </ThemeContext.Provider>
   )
-}
-
-const style = {
-  container: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  text: {
-    fontSize: 30,
-    fontWeight: 'bold'
-  }
 }
